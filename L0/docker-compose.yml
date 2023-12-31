@@ -1,0 +1,51 @@
+version: "3.8"
+services:
+  nats-streaming:
+    image: nats-streaming:latest
+    container_name: nats-streaming-container
+    hostname: ${NATS_HOSTNAME}
+    networks:
+      - default
+    ports:
+      - 4222:4222
+    command: ["--cluster_id", "${NATS_CLUSTER_ID}"]
+  
+  subscriber:
+    depends_on:
+      - nats-streaming
+      - postgres
+    build: ./subscriber
+    container_name: sub
+    hostname: sub-host
+    environment:
+      - ENV_VAR=true
+      - PGHOST=${PGHOST:-db}
+    networks:
+      - default
+    ports:
+      - 8080:8080
+    # deploy:
+    #   restart_policy:
+    #     condition: on-failure
+
+  postgres:
+    container_name: postgrya
+    image: postgres:alpine3.18
+    hostname: db
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PW}
+      - POSTGRES_DB=${POSTGRES_DB} #optional (specify default database instead of $POSTGRES_DB)
+      - PGHOST=${PGHOST:-db}
+    restart: always
+    networks:
+      - default
+
+
+# networks:
+#   com-network:
+#     driver: bridge
+
+# networks:
+#   default:
+#       name: stan-docker

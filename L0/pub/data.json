@@ -1,0 +1,64 @@
+[
+  {
+    "order_uid": "4",
+    "track_number": "WBILMTESTTRACK",
+    "entry": "WBIL",
+    "delivery": {
+      "name": "Jane Smith",
+      "phone": "+1415555555",
+      "zip": "10001",
+      "city": "New York",
+      "address": "456 Broadway",
+      "region": "NY",
+      "email": "janesmith@gmail.com"
+    },
+    "payment": {
+      "transaction": "c9876543d",
+      "request_id": "",
+      "currency": "USD",
+      "provider": "stripe",
+      "amount": 1200,
+      "payment_dt": 1637907727,
+      "bank": "",
+      "delivery_cost": 800,
+      "goods_total": 400,
+      "custom_fee": 0
+    },
+    "items": [
+      {
+        "chrt_id": 345678,
+        "track_number": "WBILMTESTTRACK",
+        "price": 100,
+        "rid": "ab4219087a764ae0btest",
+        "name": "Sweater",
+        "sale": 0,
+        "size": "S",
+        "total_price": 100,
+        "nm_id": 6789012,
+        "brand": "Gap",
+        "status": 202
+      },
+      {
+        "chrt_id": 456789,
+        "track_number": "WBILMTESTTRACK",
+        "price": 200,
+        "rid": "ab4219087a764ae0btest",
+        "name": "Skirt",
+        "sale": 0,
+        "size": "6",
+        "total_price": 200,
+        "nm_id": 1234567,
+        "brand": "H&M",
+        "status": 202
+      }
+    ],
+    "locale": "en",
+    "internal_signature": "",
+    "customer_id": "janesmith",
+    "delivery_service": "ups",
+    "shardkey": "2",
+    "sm_id": 99,
+    "date_created": "2021-11-26T06:22:19Z",
+    "oof_shard": "1"
+  }
+]
