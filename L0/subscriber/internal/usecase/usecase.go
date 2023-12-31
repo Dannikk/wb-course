@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log"
 	"ordermngmt/internal/custom_error"
 	handler "ordermngmt/internal/handler/http/api"
 	entity "ordermngmt/pkg/entity"
@@ -37,8 +38,10 @@ func (uc *UseCase) GetOrder(ctx context.Context, id entity.OrderID) (entity.Orde
 	order, err := uc.cache.GetOrder(ctx, id)
 
 	if err == nil {
+		log.Println("returned order from cache")
 		return order, nil
 	} else if err != custom_error.ErrNotFoundCache {
+		log.Println("error while getting order from cache")
 		return order, err
 	}
 
@@ -48,7 +51,9 @@ func (uc *UseCase) GetOrder(ctx context.Context, id entity.OrderID) (entity.Orde
 		return order, err
 	}
 
+	log.Println("order was found in storage")
 	err = uc.cache.AddOrder(ctx, order)
+	log.Println("order was added to cache")
 
 	return order, err
 }

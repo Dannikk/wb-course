@@ -19,3 +19,7 @@
 
 # Go workspace file
 go.work
+
+L0/gui/.venv/
+L0/pub/data5copy.txt
+

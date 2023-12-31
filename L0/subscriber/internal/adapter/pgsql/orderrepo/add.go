@@ -143,7 +143,7 @@ func (repo *Repository) AddOrder(ctx context.Context, order entity.Order) error 
 		return fmt.Errorf("failed to insert items: %w", err)
 	}
 
-	log.Printf("Inserted order of %v items\n", len(order.Items))
+	log.Printf("Inserted order [%v] that consists of %v items\n", order.Order_uid, len(order.Items))
 
 	return nil
 }

@@ -46,8 +46,7 @@ func NewApp(cfgPath string) (*App, error) {
 	return app, nil
 }
 
-func (app *App) Run() error {
-	errChan := make(chan error, 1)
+func (app *App) Run(errChan chan error) {
 	useCase := app.c.GetUseCase()
 
 	go func() {
@@ -59,15 +58,10 @@ func (app *App) Run() error {
 		errChan <- app.runStan(useCase)
 		log.Println("stan server returned error")
 	}()
-
-	err := <-errChan
-	return err
 }
 
 func (app *App) runStan(uc *usecase.UseCase) error {
 	for data := range app.c.msgStream {
-		log.Println(string(data[:15]))
-		log.Println("NEw message!!!!")
 		err := uc.AddOrder(context.Background(), data)
 		if err != nil {
 			log.Println(err)

@@ -24,9 +24,7 @@ services:
       - default
     ports:
       - 8080:8080
-    # deploy:
-    #   restart_policy:
-    #     condition: on-failure
+    stop_signal: SIGINT
 
   postgres:
     container_name: postgrya
@@ -40,12 +38,3 @@ services:
     restart: always
     networks:
       - default
-
-
-# networks:
-#   com-network:
-#     driver: bridge
-
-# networks:
-#   default:
-#       name: stan-docker

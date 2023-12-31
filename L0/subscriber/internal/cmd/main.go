@@ -12,11 +12,11 @@ func main() {
 	defer func() {
 		e := recover()
 		if e != nil {
-			log.Println("Oh oh oh, ERROR:", e)
+			log.Println("error was recovered", e)
 		}
 	}()
 
-	log.Println("Sub is running...(logging)")
+	log.Println("Sub is running...")
 
 	application, err := app.NewApp(".env")
 
@@ -24,13 +24,17 @@ func main() {
 		log.Fatalf("while creating app %v", err)
 	}
 
-	err = application.Run()
-	if err != nil {
-		log.Fatalf("while running app %v", err)
-	}
+	errChan := make(chan error, 1)
+	application.Run(errChan)
 
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGTERM, syscall.SIGINT)
-	sig := <-quit
-	log.Printf("%v was called. Shutdown the app", sig)
+
+	select {
+	case err := <-errChan:
+		log.Fatalf("while running app %v", err)
+	case sig := <-quit:
+		log.Printf("%v was called. Shutdown the app", sig)
+	}
+
 }
