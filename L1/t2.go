@@ -5,7 +5,6 @@ import (
 	"sync"
 )
 
-
 func task2_1() {
 	numbers := []int{2, 4, 6, 8, 10}
 
@@ -14,9 +13,9 @@ func task2_1() {
 	for _, num := range numbers {
 		num := num
 		wg.Add(1)
-		go func(){
+		go func() {
 			defer wg.Done()
-			fmt.Println(num*num)
+			fmt.Println(num * num)
 		}()
 	}
 	wg.Wait()
@@ -28,9 +27,9 @@ func task2_2() {
 
 	for _, num := range numbers {
 		wg.Add(1)
-		go func(x int){
+		go func(x int) {
 			defer wg.Done()
-			fmt.Println(x*x)
+			fmt.Println(x * x)
 		}(num)
 	}
 	wg.Wait()

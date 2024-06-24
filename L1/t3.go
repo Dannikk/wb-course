@@ -16,7 +16,7 @@ func task3_1() {
 		wg.Add(1)
 		go func(x int) {
 			defer wg.Done()
-			summa.Add(int32(x*x))
+			summa.Add(int32(x * x))
 			summa.Load()
 		}(num)
 	}
